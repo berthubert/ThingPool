@@ -13,15 +13,19 @@ instance it made earlier.
 
 Syntax:
 
+```C++
 ThingPool<SQLiteWriter> tp("tk.sqlite3", SQLWFlag::ReadOnly);
+```
 
 This says you want objects of type SQLiteWriter, and that they should be
-created as: new SQLiteWriter("tk.sqlite3", SQLWFlag::ReadOnly);
+created as: `new SQLiteWriter("tk.sqlite3", SQLWFlag::ReadOnly);`
 
 Requesting an instance goes like this:
 
+```C++
 auto lease = tp.getLease();
 lease->queryT("select count(1) from Document");
+```
 
 As long as 'lease' is alive, the instance is all yours. Once lease goes out of
 scope, the object is returned to the pool. The -> syntax allows you to call
