@@ -29,7 +29,8 @@ lease->queryT("select count(1) from Document");
 
 As long as 'lease' is alive, the instance is all yours. Once lease goes out of
 scope, the object is returned to the pool. The -> syntax allows you to call
-methods on SQLiteWriter.
+methods on SQLiteWriter. If you need a reference to your Thing, use get() (much
+like smart pointers).
 
 Many threads can use getLease() at the same time, and returns are of course
 also threadsafe.
