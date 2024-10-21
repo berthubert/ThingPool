@@ -3,7 +3,7 @@ Minimalistic, easy to use, generic object pool.
 
 (C) 2024 Bert Hubert <bert@hubertnet.nl> - MIT License
 
-Often you have an class (or Thing) that a single thread can use exclusively,
+Often you have a class (or Thing) that a single thread can use exclusively,
 but which has some cost to create and tear down. The canonical example is
 a database connection.
 
@@ -35,10 +35,20 @@ like smart pointers).
 Many threads can use getLease() at the same time, and returns are of course
 also threadsafe.
 
-If you allow ThreadPool to go out of scope (or if you destroy it) while there
+If you no longer need a lease, you can call its release() method to return it
+to the pool. If you think the state of your object is bad, you can call the
+abandon() method, which will delete the object and not return it to the pool.
+
+If you allow ThingPool to go out of scope (or if you destroy it) while there
 are still active leases, this will throw an exception and likely kill your
 process. Don't do this. There is likely no better robust way to deal with this
 situation.
 
-And that's it. Enjoy, feedback is welcome on bert@hubertnet.nl !
+# Including ThingPool
+You can simply include the thingpool.hh file. There is a small Makefile in
+this repository, and you can use that to build the testrunner to exercise
+the code.
+
+# That's it
+Enjoy, feedback is welcome on bert@hubertnet.nl !
 
